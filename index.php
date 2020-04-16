@@ -2,14 +2,14 @@
 
 // include database and object files
 include_once 'config/database.php';
-include_once 'objects/philanthropist.php';
+include_once 'objects/farmer.php';
  
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
  
 // pass connection to objects
-$philanthropist = new Philanthropist($db);
+$farmer = new Farmer($db);
 
 // set page headers
 include_once "header.php";
@@ -21,25 +21,27 @@ include_once "header.php";
 if($_POST){
  
   // set product property values
-  $philanthropist->fullname = $_POST['fullname'];
-  $philanthropist->lastname = $_POST['lastname'];
-  $philanthropist->phone = $_POST['phone'];
-  $philanthropist->email = ($_POST['email'])??null;
-  $philanthropist->address = ($_POST['address'])??null;
-  $philanthropist->village = $_POST['village'];
-  $philanthropist->mandal = $_POST['mandal'];
-  $philanthropist->district = $_POST['district'];
-  $philanthropist->occupation = ($_POST['occupation'])??null;
-  $philanthropist->charity_event = ($_POST['charity_event'])??null;
-  $philanthropist->police_station = ($_POST['police_station'])??null;
+  $farmer->firstname = $_POST['firstname'];
+  $farmer->lastname = $_POST['lastname'];
+  $farmer->father = $_POST['father'];
+  $farmer->email = ($_POST['email'])??null;
+  $farmer->mobile = ($_POST['mobile'])??null;
+  $farmer->village = $_POST['village'];
+  $farmer->mandal = $_POST['mandal'];
+  $farmer->district = "Guntur";
+  $farmer->state = "Andhrapradesh";
+  $farmer->pincode = $_POST['pincode']
+  $farmer->crop1 = ($_POST['crop1'])??null;
+  $farmer->crop2 = ($_POST['crop2'])??null;
+  $farmer->crop3 = ($_POST['crop3'])??null;
  
   // create the product
-  if($philanthropist->create()){
-    echo "<div class='alert alert-success'>Thank You For Your Interest!.</div>";
+  if($farmer->create()){
+    echo "<div class='alert alert-success'>Farmer details saved!</div>";
   } 
   // if unable to create the product, tell the user
   else{
-    echo "<div class='alert alert-danger'>Error! Please Contact The Concern Person!.</div>";
+    echo "<div class='alert alert-danger'>Error! Please Contact Chanti!.</div>";
   }
   exit();
 }
@@ -50,25 +52,38 @@ if($_POST){
   <div id="response"></div>
   <div class="row">
     <div class="col-md-3 register-left">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR5SdjnWNgoBQUGvfxdBC3kCgwEjdmgp4yh4P8OJx0l2BSTAIe5&usqp=CAU" alt=""/>
+      <img src="../images/logo.jpeg" alt="Indolife"/>
       <h3>Namaskaram</h3>
-      <p>A man's true wealth is the good he does in this world!</p>
+      <p>Farmers Information</p>
     </div>
     <div class="col-md-9 register-right">
       <form name="register" id="register" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="profile-tab">
-            <h3  class="register-heading">Register here</h3>
+            <h3  class="register-heading">Farmer details</h3>
             <div class="row register-form">
               <div class="col-md-6">
-                <div class="form-group"><input type="text" class="form-control" placeholder="First Name *" name="fullname"/></div>
+                <div class="form-group"><input type="text" class="form-control" placeholder="First Name *" name="firstname"/></div>
                 <div class="form-group"><input type="text" class="form-control" placeholder="Last Name *" name="lastname"/></div>
+                <div class="form-group"><input type="email" class="form-control" placeholder="Father" name="father" /></div>
                 <div class="form-group"><input type="email" class="form-control" placeholder="Email" name="email" /></div>
-                <div class="form-group"><input type="text" class="form-control" placeholder="Phone *" name="phone" /></div>
-                <div class="form-group"><input type="text" class="form-control" placeholder="Business / Occupation" name="occupation"/></div>
+                <div class="form-group"><input type="text" class="form-control" placeholder="Mobile *" name="mobile" /></div>
               </div>
               <div class="col-md-6">
-                <div class="form-group"><input type="text" class="form-control" placeholder="Village / City *" name="village" /></div>
+                <div class="form-group">
+                	<input type="text" class="form-control" placeholder="Village / City *" name="village" />
+                	<select class="form-control" name="village">
+                		<option value="Rentachintala">Rentachintala</option>
+                		<option value="Paluvoi">Paluvoi</option>
+                		<option value="Paluvoi Gate">Paluvoi Gate</option>
+                		<option value="Tummrukota">Tummrukota</option>
+                		<option value="Goli">Goli</option>
+                		<option value="2">Pasarlapadu</option>
+                		<option value="2">Pasarlapadu</option>
+                		<option value="2">Pasarlapadu</option>
+                		<option value="2">Pasarlapadu</option>
+                	</select>
+                </div>
                 <div class="form-group"><input type="text" class="form-control" placeholder="Mandal *" name="mandal" /></div>
                 <div class="form-group"><input type="text" class="form-control" placeholder="District *" name="district"/></div>
                 <div class="form-group"><input type="text" class="form-control" placeholder="State *" name="state"/></div>
